@@ -40,14 +40,20 @@ var SidebarMenuEffects = (function () {
 		button1Click = function (el) {
 			//buttons.forEach( function( el, i ) {
 			//var effect = el.getAttribute( 'data-effect' );
-			var el = button1;
+			//var el = button1;
+			alert(el.className)
 			el.addEventListener(eventtype, function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				container.className = 'st-container'; // clear
-				classie.add(container, 'st-effect-3');
+				
 				setTimeout(function () {
-					classie.add(container, 'st-menu-open');
+					if(!container.classList.contains('st-menu-open')){
+						classie.add(container, 'st-menu-open');
+						classie.add(container, 'st-effect-3');
+					}else{ 
+						container.classList.remove('st-menu-open st-effect-3');
+					}
 				}, 25);
 				
 			});
@@ -58,9 +64,9 @@ var SidebarMenuEffects = (function () {
 			}	
 		}
 
-		//button1.onclick = button1Click(this);
+		button1.onclick = button1Click(this);
 		pusher.onclick = closeMenu();
-		document.addEventListener(eventtype, (closeMenu, button1Click) );
+		document.addEventListener(eventtype, closeMenu );
 	}
 
 	init();
